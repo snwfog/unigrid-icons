@@ -6,11 +6,13 @@ $asset-name: "unigrid";
 // Original size is 80
 // Color size is 92
 // Now original and color is resized to 92
-$icon-width: 92;
+$icon-grid-width: 92;
+$icon-width: 80;
+
 
 // pixels
 @mixin position($x, $y) {
-  background-position: -#{$x * $icon-width - $icon-width}px -#{$y * $icon-width - $icon-width}px;
+  background-position: -#{($x - 1) * $icon-grid-width + ($icon-grid-width - $icon-width) / 2}px -#{($y - 1) * $icon-grid-width + ($icon-grid-width - $icon-width) / 2}px;
 }
 
 i.unigrid-icon {
