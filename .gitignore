@@ -2,6 +2,9 @@
 *.png
 *.sketch
 
+### Sass
+.sass-cache
+
 ### Ruby template
 *.gem
 *.rbc

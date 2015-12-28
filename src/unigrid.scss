@@ -1,5 +1,40 @@
-$asset-path: 'images/sprites/unigrid'; // final asset folder
-$asset-width: 80; // pixels
+$asset-path: "../test/images/sprites/unigrid";
+
+// final asset folder
+$asset-name: "unigrid";
+
+// Original size is 80
+// Color size is 92
+// Now original and color is resized to 92
+$icon-width: 92;
+
+// pixels
+@mixin position($x, $y) {
+  background-position: -#{$x * $icon-width - $icon-width}px -#{$y * $icon-width - $icon-width}px;
+}
+
+i.unigrid-icon {
+  background-repeat: no-repeat;
+  background-image: url("#{$asset-path}/#{$asset-name}-original-icons.png");
+
+  &.color { background-image: url("#{$asset-path}/#{$asset-name}-color-icons.png"); }
+
+  &.unigrid-icon-compact-car             { @include position(2, 9); }
+  &.unigrid-icon-full-size-car           { @include position(4, 8); }
+  &.unigrid-icon-convertible             { @include position(7, 8); }
+  &.unigrid-icon-sports-car              { @include position(8, 8); }
+  &.unigrid-icon-supercar                { @include position(10, 8); }
+  &.unigrid-icon-compact-minivan         { @include position(2, 3); }
+  &.unigrid-icon-large-minivan           { @include position(3, 3); }
+  &.unigrid-icon-compact-suv             { @include position(5, 8); }
+  &.unigrid-icon-mid-size-suv            { @include position(2, 8); }
+  &.unigrid-icon-full-size-suv           { @include position(1, 8); }
+  &.unigrid-icon-mid-size-pickup-truck   { @include position(3, 8); }
+  &.unigrid-icon-jeep                    { @include position(6, 10); }
+  &.unigrid-icon-bus                     { @include position(3, 1); }
+  &.unigrid-icon-double-deck-bus         { @include position(7, 1); }
+  &.unigrid-icon-transporter             { @include position(1, 3); }
+}
 
 //.swift-icon {
 //  background-repeat: no-repeat;
