@@ -57,6 +57,14 @@ task :rename_fucked do
   end
 end
 
+desc 'Repack'
+task :repack, [:folder_or_file_glob, :width, :x, :y] do |t, args|
+  to_be_repacked_folder_or_file = FileList.new(args[:folder_or_file_glob])
+  raise 'No target was found' if to_be_repacked_folder_or_file.to_a.empty?
+  # %x(montage #{args[:folder_or_file_glob]} -tile #{args[:width]} -geometry #{x}x#{y} -background none repacked_file.png)
+  puts 'montage shaved_top_*.png -tile 8 -geometry 80x80 -background none repacked_top.png'
+end
+
 desc 'Shave {x}x{y} pixels from the crawled large file. (rake shave[picture.png,x,y]). Shave will cut the picture from 0x0'
 task :shave, [:file, :x, :y] do |t, args|
   to_be_shaved_pictures = FileList.new(args[:file]) # Accepts glob pattern
@@ -69,7 +77,7 @@ task :shave, [:file, :x, :y] do |t, args|
   end
 end
 
-desc '\'Slice\' the picture into the specific format. (rake slice[picture.png,x,y])'
+desc 'Slice the picture into the specific format. (rake slice[picture.png,x,y])'
 task :slice, [:file, :x, :y] do |t, args|
   to_be_sliced_pictures = FileList.new(args[:file]) # Accepts glob pattern
   raise 'No picture was found' if to_be_sliced_pictures.to_a.empty?
@@ -81,6 +89,15 @@ task :slice, [:file, :x, :y] do |t, args|
 
     %x(convert #{p} -crop '#{x}x#{y}' +repage #{file_name}_%d#{file_extension})
   end
+end
+
+desc 'Print useful command reminder'
+task :remind do
+  puts %Q{Shave: convert picture.png -shave '50x90' shaved_picture.png}
+  puts %Q{Slice: convert shaved_top.png -crop '80x80' +repage unigrid_top_%d.png'}
+  puts %Q{Repack: montage shaved_top_*.png -tile 8 -geometry 80x80 -background none repacked_top.png}
+  # http://stackoverflow.com/questions/17580088/imagemagick-montage-natural-file-order
+  puts %Q{montage $(ls -1 *.png | sort -g) -tile 10 -geometry +6+6 -background white ../repacked_vehicles_original.png}
 end
 
 desc 'Clean up residue from the sliced picture set, may or may not apply to your case'

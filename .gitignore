@@ -1,3 +1,6 @@
+*.jpg
+*.png
+
 ### Ruby template
 *.gem
 *.rbc
