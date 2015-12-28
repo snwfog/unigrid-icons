@@ -1,0 +1,25 @@
+$asset-path: 'images/sprites/unigrid'; // final asset folder
+$asset-width: 80; // pixels
+
+.swift-icon {
+  background-repeat: no-repeat;
+  width: #{$asset-width}px;
+  height: #{$asset-width}px;
+
+  @each $variation in color, bw, outline {
+    @each $category in activities, brands, care, exterior, formats, holidays, household, interaction, interface, kitchen, marketing, medical, photo, science, tech, transport, weather {
+      &.#{$variation} {
+        &.#{$category} {
+          background-image: url("/#{$asset-path}/resized_#{$category}_#{$variation}_#{$asset-width}.png");
+          @for $width from 1 through 8 {
+            @for $height from 1 through 20 {
+              &.col-#{$width}.row-#{$height} {
+                background-position: -#{$asset-width * $width}px -#{$asset-width * $height}px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
